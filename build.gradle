@@ -151,6 +151,14 @@ dependencies {
 	}
 }
 
+if (loader == FABRIC) {
+	configurations.all {
+		resolutionStrategy {
+			force("net.fabricmc:fabric-loader:$project.properties.fabricloader")
+		}
+	}
+}
+
 jar {
     from(rootProject.file("LICENSE")) {
         rename { "${it}_${archivesBaseName}"}

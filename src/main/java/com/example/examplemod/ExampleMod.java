@@ -36,9 +36,9 @@ public class ExampleMod {
         //? if fabric
         /*return FabricLoader.getInstance().getModContainer(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getMetadata().getName();*/
         //? if forge
-        return ModList.get().getModContainerById(modId).orElseThrow().getModInfo().getDisplayName();
+        return ModList.get().getModContainerById(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getModInfo().getDisplayName();
         //? if neoforge
-        /*return ModList.get().getModContainerById(modId).orElseThrow().getModInfo().getDisplayName();*/
+        /*return ModList.get().getModContainerById(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getModInfo().getDisplayName();*/
     }
 
     //? if forge || neoforge {
