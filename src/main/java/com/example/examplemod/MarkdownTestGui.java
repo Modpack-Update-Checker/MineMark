@@ -18,7 +18,10 @@
 package com.example.examplemod;
 
 import dev.dediamondpro.minemark.minecraft.MineMarkDrawable;
+//? if >=1.20
 import net.minecraft.client.gui.GuiGraphics;
+//? if <1.20
+/*import com.mojang.blaze3d.vertex.PoseStack;*/
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 import org.xml.sax.SAXException;
@@ -60,7 +63,7 @@ public class MarkdownTestGui extends Screen {
     }
 
     @Override
-    public void render(GuiGraphics graphics, int mouseX, int mouseY, float delta) {
+    public void render(/*? if >=1.20 {*/GuiGraphics/*?} else {*//*PoseStack*//*?}*/ graphics, int mouseX, int mouseY, float delta) {
         //? >=1.20 {
         super.render(graphics, mouseX, mouseY, delta);
         //?} else

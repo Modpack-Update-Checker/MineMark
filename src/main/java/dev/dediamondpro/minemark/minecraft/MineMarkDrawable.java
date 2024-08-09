@@ -26,6 +26,7 @@ import dev.dediamondpro.minemark.minecraft.elements.*;
 import dev.dediamondpro.minemark.minecraft.platform.MarkdownRenderer;
 import dev.dediamondpro.minemark.minecraft.style.MarkdownStyle;
 import dev.dediamondpro.minemark.utils.MouseButton;
+//? if >=1.20
 import net.minecraft.client.gui.GuiGraphics;
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
