@@ -27,10 +27,8 @@ jobs:
           distribution: 'microsoft'
       - name: make gradle wrapper executable
         run: chmod +x ./release
-      - name: build, phase 1
+      - name: build
         run: ./release
-      - name: build, phase 2
-        run: ./gradlew chiseledBuild
         env:
           MAVEN_URL: ${{ secrets.MAVEN_URL }}
           MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
