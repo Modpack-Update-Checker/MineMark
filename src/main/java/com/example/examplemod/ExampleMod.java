@@ -1,12 +1,12 @@
 package com.example.examplemod;
 
 //? if fabric
-/*import net.fabricmc.loader.api.FabricLoader;*/
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.Minecraft;
 //? if forge {
-import net.minecraftforge.fml.ModList;
+/*import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
-//?} if neoforge {
+*///?} if neoforge {
 /*import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 *///?}
@@ -24,7 +24,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.NoSuchElementException;
 
 //? if forge || neoforge
-@Mod(ExampleMod.MOD_ID)
+/*@Mod(ExampleMod.MOD_ID)*/
 public class ExampleMod {
     public static final String MOD_ID = "mpuc_minemark";
 	//? if >=1.18
@@ -34,24 +34,24 @@ public class ExampleMod {
 
     private static String getDisplayName(String modId) {
         //? if fabric
-        /*return FabricLoader.getInstance().getModContainer(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getMetadata().getName();*/
+        return FabricLoader.getInstance().getModContainer(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getMetadata().getName();
         //? if forge
-        return ModList.get().getModContainerById(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getModInfo().getDisplayName();
+        /*return ModList.get().getModContainerById(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getModInfo().getDisplayName();*/
         //? if neoforge
         /*return ModList.get().getModContainerById(modId).orElseThrow(() -> new NoSuchElementException("No value present")).getModInfo().getDisplayName();*/
     }
 
     //? if forge || neoforge {
-    public ExampleMod() {
+    /*public ExampleMod() {
         onInitialize();
     }
-    //?}
+    *///?}
 
     public void onInitialize() {
         //? if fabric
-        /*String loader = "Fabric";*/
+        String loader = "Fabric";
         //? if forge
-        String loader = "Forge";
+        /*String loader = "Forge";*/
         //? if neoforge
         /*String loader = "NeoForge";*/
         LOGGER.info("Hello {} World!", loader);
