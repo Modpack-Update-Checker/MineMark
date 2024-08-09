@@ -15,11 +15,6 @@ plugins {
 	// Setup maven publishing
 	id "maven-publish"
 }
-if (ENV.MAVEN_URL) {
-	System.out.println(ENV.MAVEN_URL.hashCode())
-} else {
-	System.out.println("WHY?")
-}
 
 group = project.properties.mod_package
 version = project.properties.mod_version
@@ -265,7 +260,9 @@ publishing {
 			groupId = 'dev.jab125.minemark'
 			artifactId = "minemark-minecraft-" + version.getFriendlyString() + "-" + loader.friendlyName
 			it.version = project.version
-			from components.java
+			artifact(remapJar) {
+				builtBy(remapJar)
+			}
 		}
 	}
 	setupRepositories(repositories)
