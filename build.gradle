@@ -12,6 +12,8 @@ import static bs.ModLoader.NEOFORGE
 
 plugins {
     id 'java'
+	// Setup maven publishing
+	id "maven-publish"
 }
 
 group = project.properties.mod_package
@@ -69,14 +71,6 @@ apply plugin: 'dev.architectury.loom'
 stonecutter.const("fabric", loader == FABRIC)
 stonecutter.const("forge", loader == FORGE)
 stonecutter.const("neoforge", loader == NEOFORGE)
-loom {
-    File file = project.buildDir.toPath().resolve("chiseledSrc/main/resources/${E.p.mod_id}.accesswidener").toFile()
-    if (file.exists()) {
-        accessWidenerPath = file
-    } else {
-        project.logger.warn("Access widener file not generated yet!")
-    }
-}
 // Use vanilla mixin on Forge
 if (loader == FORGE) {
     loom {
@@ -239,12 +233,6 @@ processResources {
     }
 }
 
-remapJar {
-    if (loader == FORGE || loader == NEOFORGE) {
-        atAccessWideners.add("${project.properties.mod_id}.accesswidener")
-    }
-}
-
 if (loader == FORGE) {
     configurations.all {
         resolutionStrategy {
@@ -264,4 +252,34 @@ sourceCompatibility = targetCompatibility = version >= net.fabricmc.loader.api.V
 tasks.withType(JavaCompile).configureEach {
 	if (version >= net.fabricmc.loader.api.Version.parse("1.17"))
 		options.release = version >= net.fabricmc.loader.api.Version.parse("1.20.5") ? 21 : version >= net.fabricmc.loader.api.Version.parse("1.18") ? 17 : version >= net.fabricmc.loader.api.Version.parse("1.17") ? 16 : 8
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			groupId = 'dev.jab125.minemark'
+			artifactId = "minemark-minecraft-" + version.getFriendlyString()
+			it.version = project.version
+			artifact(remapJar) {
+				builtBy(remapJar)
+			}
+		}
+	}
+	setupRepositories(repositories)
+}
+
+void setupRepositories(RepositoryHandler repositories) {
+	//repositories.mavenLocal() // uncomment for testing
+	def ENV = System.getenv()
+	if (ENV.MAVEN_URL) {
+		repositories.maven {
+			url ENV.MAVEN_URL
+			if (ENV.MAVEN_USERNAME) {
+				credentials {
+					username ENV.MAVEN_USERNAME
+					password ENV.MAVEN_PASSWORD
+				}
+			}
+		}
+	}
 }
