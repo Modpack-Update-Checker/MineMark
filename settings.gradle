@@ -28,7 +28,9 @@ var loaders = properties["enabled_platforms"].toString().split(",")
 stonecutter {
     shared {
         // Stonecutter requires a semantic version
-        versions loaders
+		for (final def r in loaders) {
+			vers(r, r.split("-")[0])
+		}
     }
 
     create rootProject
