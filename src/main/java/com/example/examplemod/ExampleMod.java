@@ -10,13 +10,14 @@ import net.minecraftforge.fml.common.Mod;
 /*import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 *///?}
+import net.minecraft.client.gui.screens.OptionsScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //? if forge || neoforge
 /*@Mod(ExampleMod.MOD_ID)*/
 public class ExampleMod {
-    public static final String MOD_ID = "examplemod";
+    public static final String MOD_ID = "mpuc_minemark";
     public static final Logger LOGGER = LoggerFactory.getLogger(getDisplayName(MOD_ID));
 
     private static String getDisplayName(String modId) {
@@ -43,6 +44,19 @@ public class ExampleMod {
         /*String loader = "NeoForge";*/
         LOGGER.info("Hello {} World!", loader);
         // This is a test to assert that the access widener works.
-        LOGGER.info("Minecraft: {}", Minecraft.instance);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(true) {
+					synchronized (Minecraft.getInstance()) {
+						if (Minecraft.getInstance().screen instanceof OptionsScreen) {
+							Minecraft.getInstance().execute(() ->
+							Minecraft.getInstance().setScreen(new MarkdownTestGui()));
+							return;
+						}
+					}
+				}
+			}
+		}).start();
     }
 }

@@ -28,10 +28,10 @@ var loaders = properties["enabled_platforms"].toString().split(",")
 stonecutter {
     shared {
         // Stonecutter requires a semantic version
-        versions loaders.collect { "0.0.0-" + it}
+        versions loaders
     }
 
     create rootProject
 }
 
-rootProject.name = "multiloader-example-mod"
+rootProject.name = "mpucmm"

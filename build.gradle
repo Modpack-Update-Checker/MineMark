@@ -14,10 +14,10 @@ plugins {
     id 'java'
 }
 
-group = rootProject.properties.mod_package
-version = rootProject.properties.mod_version
+group = project.properties.mod_package
+version = project.properties.mod_version
 ModLoader loader = ModLoader.fromProject(project)
-archivesBaseName = "${rootProject.properties.mod_id}-$loader.friendlyName"
+archivesBaseName = "${project.properties.mod_id}-$loader.friendlyName"
 
 def packageJar = tasks.create("packageJar", Copy.class) {
     into("${rootProject.layout.buildDirectory.get()}/libs/${E.p["mod_version"]}")
@@ -31,21 +31,26 @@ repositories {
     maven {
         url = "https://maven.terraformersmc.com/releases"
     }
+	// for Placeholder API
+	maven {
+		name = 'Nucleoid'
+		url = 'https://maven.nucleoid.xyz/'
+	}
     // For NeoForge
     maven {
         url = "https://maven.neoforged.net/releases"
     }
     // For NeoForge PRs
-    if (rootProject.properties.neoforge_pr) {
+    if (project.properties.neoforge_pr) {
         maven {
-            url "https://prmaven.neoforged.net/NeoForge/pr$rootProject.properties.neoforge_pr"
+            url "https://prmaven.neoforged.net/NeoForge/pr$project.properties.neoforge_pr"
             content {
                 includeModule("net.neoforged", "neoforge")
             }
         }
     }
     // For Patchment mappings
-    if (rootProject.properties.parchment_version) {
+    if (project.properties.parchment_version) {
         maven {
             name = 'ParchmentMC'
             url = 'https://maven.parchmentmc.org'
@@ -55,6 +60,10 @@ repositories {
     maven {
         url = "https://maven.minecraftforge.net/"
     }
+	// For MineMark
+	maven {
+		url = "https://maven.dediamondpro.dev/releases"
+	}
 }
 apply plugin: 'dev.architectury.loom'
 stonecutter.const("fabric", loader == FABRIC)
@@ -80,61 +89,61 @@ if (loader == FORGE) {
 }
 
 dependencies {
-    minecraft "net.minecraft:minecraft:$rootProject.properties.minecraft"
-    if (rootProject.properties.parchment_version) {
+    minecraft "net.minecraft:minecraft:$project.properties.minecraft"
+    if (project.properties.parchment_version) {
         mappings loom.layered {
             officialMojangMappings()
-            parchment("org.parchmentmc.data:parchment-${rootProject.properties.parchment_version}@zip")
+            parchment("org.parchmentmc.data:parchment-${project.properties.parchment_version}@zip")
         }
     } else {
         mappings loom.officialMojangMappings()
     }
     if (loader == FABRIC) {
-        modImplementation "net.fabricmc:fabric-loader:$rootProject.properties.fabricloader"
-        modCompileOnly "com.terraformersmc:modmenu:$rootProject.properties.modmenu", {
+        modImplementation "net.fabricmc:fabric-loader:$project.properties.fabricloader"
+        modCompileOnly "com.terraformersmc:modmenu:$project.properties.modmenu", {
             // Don't transitively pull in Mod Menu's Fabric deps
             exclude module: "net.fabricmc"
             exclude module: "net.fabricmc.fabric-api"
         }
-        modLocalRuntime "com.terraformersmc:modmenu:$rootProject.properties.modmenu", {
+        modLocalRuntime "com.terraformersmc:modmenu:$project.properties.modmenu", {
             // Don't transitively pull in Mod Menu's Fabric deps
             exclude module: "net.fabricmc"
             exclude module: "net.fabricmc.fabric-api"
         }
-        if (rootProject.properties.fabric_api_modules == "*") {
-            if (rootProject.properties.include_fabric_api_modules == "true") {
+        if (project.properties.fabric_api_modules == "*") {
+            if (project.properties.include_fabric_api_modules == "true") {
                 throw new RuntimeException("You can't include the entirety of Fabric API!")
             }
-            modApi "net.fabricmc.fabric-api:fabric-api:$rootProject.properties.fabric_api_version"
+            modApi "net.fabricmc.fabric-api:fabric-api:$project.properties.fabric_api_version"
         } else {
-            for (String module in rootProject.properties.fabric_api_modules.split(",") as String[]) {
-                var dep = fabricApi.module(module, "$rootProject.properties.fabric_api_version")
-                modApi dep
-                if (rootProject.properties.include_fabric_api_modules == "true") {
-                    include(dep)
-                }
-            }
+			if (project.properties.fabric_api_modules) {
+				for (String module in project.properties.fabric_api_modules.split(",") as String[]) {
+					var dep = fabricApi.module(module, "$project.properties.fabric_api_version")
+					modApi dep
+					if (project.properties.include_fabric_api_modules == "true") {
+						include(dep)
+					}
+				}
+			}
         }
     } else if (loader == FORGE) {
-        forge "net.minecraftforge:forge:$rootProject.properties.forge"
+        forge "net.minecraftforge:forge:$project.properties.forge"
     } else if (loader == NEOFORGE) {
-        neoForge "net.neoforged:neoforge:$rootProject.properties.neoforge"
+        neoForge "net.neoforged:neoforge:$project.properties.neoforge"
     }
-}
 
-afterEvaluate {
-    def hasApplicableMixinExtras = project.getConfigurations().getByName("runtimeClasspath").getAllDependencies().stream().anyMatch(a -> {
-        return a.getName().startsWith("mixinextras") && a.getGroup().equals("io.github.llamalad7") && new Version(a.getVersion()) >= (new Version(rootProject.properties.mixinextras.toString()))
-    })
-
-    if (!hasApplicableMixinExtras) {
-        dependencies {
-            implementation include("io.github.llamalad7:mixinextras-$loader.friendlyName:$rootProject.properties.mixinextras")
-            if (loader == FORGE || loader == NEOFORGE) {
-                forgeRuntimeLibrary "io.github.llamalad7:mixinextras-$loader.friendlyName:$rootProject.properties.mixinextras"
-            }
-        }
-    }
+	api "dev.dediamondpro:minemark-core:$project.properties.minemark"
+	api "org.commonmark:commonmark:$project.properties.commonmark"
+	api "org.commonmark:commonmark-ext-gfm-strikethrough:$project.properties.commonmark"
+	api "org.commonmark:commonmark-ext-gfm-tables:$project.properties.commonmark"
+	api "org.ccil.cowan.tagsoup:tagsoup:$project.properties.tagsoup"
+	if (loader == FORGE || loader == NEOFORGE) {
+		forgeRuntimeLibrary "dev.dediamondpro:minemark-core:$project.properties.minemark"
+		forgeRuntimeLibrary "org.commonmark:commonmark:$project.properties.commonmark"
+		forgeRuntimeLibrary "org.commonmark:commonmark-ext-gfm-strikethrough:$project.properties.commonmark"
+		forgeRuntimeLibrary "org.commonmark:commonmark-ext-gfm-tables:$project.properties.commonmark"
+		forgeRuntimeLibrary "org.ccil.cowan.tagsoup:tagsoup:$project.properties.tagsoup"
+	}
 }
 
 jar {
@@ -144,7 +153,7 @@ jar {
 }
 
 processResources {
-    def dep = rootProject.properties.minecraft_dependency.toString()
+    def dep = project.properties.minecraft_dependency.toString()
     if (loader == FORGE || loader == NEOFORGE) {
         dep = SemverUtils.convertSemverPredicateToMavenPredicate(dep)
     }
@@ -152,57 +161,57 @@ processResources {
     inputs.property "forgeid", loader == NEOFORGE ? "neoforge" : "forge"
     inputs.property "minecraft_dependency", dep
     inputs.property "mod_version", version
-    inputs.property "mod_id", rootProject.properties.mod_id
-    inputs.property "mod_display_name", rootProject.properties.mod_display_name
-    inputs.property "mod_description", rootProject.properties.mod_description
-    inputs.property "homepage_url", rootProject.properties.homepage_url
-    inputs.property "sources_url", rootProject.properties.sources_url
-    inputs.property "issue_tracker_url", rootProject.properties.issue_tracker_url
-    inputs.property "license", rootProject.properties.license
-    inputs.property "fabricloader", rootProject.properties.fabricloader
-    inputs.property "contributors", rootProject.properties.mod_contributors.toString()
-    inputs.property "authors", rootProject.properties.mod_authors.toString()
-    inputs.property "fabric_api_modules", rootProject.properties.fabric_api_modules
+    inputs.property "mod_id", project.properties.mod_id
+    inputs.property "mod_display_name", project.properties.mod_display_name
+    inputs.property "mod_description", project.properties.mod_description
+    inputs.property "homepage_url", project.properties.homepage_url
+    inputs.property "sources_url", project.properties.sources_url
+    inputs.property "issue_tracker_url", project.properties.issue_tracker_url
+    inputs.property "license", project.properties.license
+    inputs.property "fabricloader", project.properties.fabricloader
+    inputs.property "contributors", project.properties.mod_contributors.toString()
+    inputs.property "authors", project.properties.mod_authors.toString()
+    inputs.property "fabric_api_modules", project.properties.fabric_api_modules
 
     filesMatching(["fabric.mod.json", "META-INF/mods.toml", "quilt.mod.json"]) {
         def map = [
                 "forgeid": loader == NEOFORGE ? "neoforge" : "forge",
                 "minecraft": dep,
                 "mod_version": version,
-                "mod_id": rootProject.properties.mod_id,
-                "mod_display_name": rootProject.properties.mod_display_name,
-                "mod_description": rootProject.properties.mod_description,
-                "homepage_url": rootProject.properties.homepage_url,
-                "sources_url": rootProject.properties.sources_url,
-                "issue_tracker_url": rootProject.properties.issue_tracker_url,
-                "license": rootProject.properties.license,
-                "fabricloader": rootProject.properties.fabricloader,
-                "contributors": rootProject.properties.mod_contributors.toString().split(","),
-                "authors": rootProject.properties.mod_authors.toString().split(",")
+                "mod_id": project.properties.mod_id,
+                "mod_display_name": project.properties.mod_display_name,
+                "mod_description": project.properties.mod_description,
+                "homepage_url": project.properties.homepage_url,
+                "sources_url": project.properties.sources_url,
+                "issue_tracker_url": project.properties.issue_tracker_url,
+                "license": project.properties.license,
+                "fabricloader": project.properties.fabricloader,
+                "contributors": project.properties.mod_contributors.toString().split(","),
+                "authors": project.properties.mod_authors.toString().split(",")
         ]
         expand map
     }
     doLast {
         if (loader == NEOFORGE) {
             fileTree(dir: outputs.files.asPath, include: "META-INF/mods.toml").each { File file ->
-                file.text += "\n\n[[mixins]]\nconfig = \"${rootProject.properties.mod_id}.mixins.json\""
+                file.text += "\n\n[[mixins]]\nconfig = \"${project.properties.mod_id}.mixins.json\""
             }
             fileTree(dir: outputs.files.asPath, include: "META-INF/mods.toml").each { File file ->
                 Files.copy(file.toPath(), java.nio.file.Path.of(outputs.files.asPath).resolve("META-INF/neoforge.mods.toml"), StandardCopyOption.REPLACE_EXISTING)
                 file.delete()
             }
         }
-        if (loader == FABRIC) {
+        if (loader == FABRIC && project.properties.fabric_api_modules) {
             fileTree(dir: outputs.files.asPath, include: "fabric.mod.json").each { File file ->
                 def parse = new JsonSlurper().parse(file)
-                def fModulesString = rootProject.properties.fabric_api_modules
+                def fModulesString = project.properties.fabric_api_modules
                 if (fModulesString == "*") {
-                    parse.depends["fabric-api"] = ">=" + rootProject.properties.fabric_api_version
+                    parse.depends["fabric-api"] = ">=" + project.properties.fabric_api_version
                 } else {
                     def fModules = fModulesString.split(",")
                     for (String s in fModules) {
                         // ^ means until the next major
-                        parse.depends[s] = "^" + fabricApi.module(s, rootProject.properties.fabric_api_version).getVersion()
+                        parse.depends[s] = "^" + fabricApi.module(s, project.properties.fabric_api_version).getVersion()
                     }
                 }
                 file.text = JsonOutput.prettyPrint(JsonOutput.toJson(parse))
@@ -219,7 +228,7 @@ processResources {
 
 remapJar {
     if (loader == FORGE || loader == NEOFORGE) {
-        atAccessWideners.add("${rootProject.properties.mod_id}.accesswidener")
+        atAccessWideners.add("${project.properties.mod_id}.accesswidener")
     }
 }
 
