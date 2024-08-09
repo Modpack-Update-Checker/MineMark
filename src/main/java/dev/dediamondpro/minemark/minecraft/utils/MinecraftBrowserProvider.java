@@ -31,7 +31,7 @@ public class MinecraftBrowserProvider implements BrowserProvider {
 
     @Override
     public void browse(String url) {
-		if (Minecraft.getInstance().options.chatLinksPrompt/*? if >=1.19 {*/ /*().get() *//*?}*/) {
+		if (Minecraft.getInstance().options.chatLinksPrompt/*? if >=1.19 {*/ ().get() /*?}*/) {
 			Screen screen = Minecraft.getInstance().screen;
 			Minecraft.getInstance().setScreen(new ConfirmLinkScreen(a -> confirmLink(a, url, screen), url, false));
 		} else {

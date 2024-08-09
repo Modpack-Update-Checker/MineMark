@@ -27,7 +27,7 @@ import dev.dediamondpro.minemark.minecraft.platform.MarkdownRenderer;
 import dev.dediamondpro.minemark.minecraft.style.MarkdownStyle;
 import dev.dediamondpro.minemark.utils.MouseButton;
 //? if >=1.20
-/*import net.minecraft.client.gui.GuiGraphics;*/
+import net.minecraft.client.gui.GuiGraphics;
 import org.commonmark.ext.gfm.strikethrough.StrikethroughExtension;
 import org.commonmark.ext.gfm.tables.TablesExtension;
 import org.xml.sax.SAXException;
@@ -70,12 +70,12 @@ public class MineMarkDrawable {
         this(markdown, new MarkdownStyle());
     }
 
-    public void draw(float x, float y, float width, float mouseX, float mouseY, /*? if >=1.20 {*//*GuiGraphics graphics*//*?} else {*/PoseStack pose/*?}*/) {
-        parsedMarkdown.draw(x, y, width, mouseX, mouseY, new MarkdownRenderer(/*? if >=1.20 {*//*graphics*//*?} else {*/pose/*?}*/));
+    public void draw(float x, float y, float width, float mouseX, float mouseY, /*? if >=1.20 {*/GuiGraphics graphics/*?} else {*//*PoseStack pose*//*?}*/) {
+        parsedMarkdown.draw(x, y, width, mouseX, mouseY, new MarkdownRenderer(/*? if >=1.20 {*/graphics/*?} else {*//*pose*//*?}*/));
     }
 
-    public void beforeDraw(float x, float y, float width, float mouseX, float mouseY, /*? if >=1.20 {*//*GuiGraphics graphics*//*?} else {*/PoseStack pose/*?}*/) {
-        parsedMarkdown.beforeDraw(x, y, width, mouseX, mouseY, new MarkdownRenderer(/*? if >=1.20 {*//*graphics*//*?} else {*/pose/*?}*/));
+    public void beforeDraw(float x, float y, float width, float mouseX, float mouseY, /*? if >=1.20 {*/GuiGraphics graphics/*?} else {*//*PoseStack pose*//*?}*/) {
+        parsedMarkdown.beforeDraw(x, y, width, mouseX, mouseY, new MarkdownRenderer(/*? if >=1.20 {*/graphics/*?} else {*//*pose*//*?}*/));
     }
 
     public void onMouseClicked(float x, float y, float mouseX, float mouseY, int button) {

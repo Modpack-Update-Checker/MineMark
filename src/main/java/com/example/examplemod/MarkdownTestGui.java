@@ -19,13 +19,13 @@ package com.example.examplemod;
 
 import dev.dediamondpro.minemark.minecraft.MineMarkDrawable;
 //? if >=1.20
-/*import net.minecraft.client.gui.GuiGraphics;*/
+import net.minecraft.client.gui.GuiGraphics;
 //? if <1.20
-import com.mojang.blaze3d.vertex.PoseStack;
+/*import com.mojang.blaze3d.vertex.PoseStack;*/
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
 //? if <1.19
-import net.minecraft.network.chat.TextComponent;
+/*import net.minecraft.network.chat.TextComponent;*/
 import org.xml.sax.SAXException;
 
 
@@ -35,7 +35,7 @@ public class MarkdownTestGui extends Screen {
     private final MineMarkDrawable markdown;
 
     protected MarkdownTestGui() {
-        super(/*? if >=1.19 {*/ /*Component.literal*//*?} else {*/ new TextComponent/*?}*/("Markdown Test GUI"));
+        super(/*? if >=1.19 {*/ Component.literal/*?} else {*/ /*new TextComponent*//*?}*/("Markdown Test GUI"));
         try {
             String markdownString = "Test **string** *with* a<br>newline <u>because</u> ~~why~~ not and also a [link](https://example.com), this should also automatically wrap if I make this text long enough<br>"
                     + "Image: ![](https://picsum.photos/2000/1000)"
@@ -65,11 +65,11 @@ public class MarkdownTestGui extends Screen {
     }
 
     @Override
-    public void render(/*? if >=1.20 {*//*GuiGraphics*//*?} else {*/PoseStack/*?}*/ graphics, int mouseX, int mouseY, float delta) {
+    public void render(/*? if >=1.20 {*/GuiGraphics/*?} else {*//*PoseStack*//*?}*/ graphics, int mouseX, int mouseY, float delta) {
         //? >=1.20 {
-        /*super.render(graphics, mouseX, mouseY, delta);
-        *///?} else
-        super.renderBackground(graphics);
+        super.render(graphics, mouseX, mouseY, delta);
+        //?} else
+        /*super.renderBackground(graphics);*/
         markdown.draw(20, 20, 300, mouseX, mouseY, graphics);
     }
 

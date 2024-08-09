@@ -31,6 +31,8 @@ stonecutter {
 		for (final def r in loaders) {
 			vers(r, r.split("-")[0])
 		}
+		// 1.20.1 is used as opposed to the 1.19.2 version MPUC uses.
+		vcsVersion = "1.20.1-fabric"
     }
 
     create rootProject

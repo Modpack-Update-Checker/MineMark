@@ -22,26 +22,26 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Font;
 //? if >=1.20
-/*import net.minecraft.client.gui.GuiGraphics;*/
+import net.minecraft.client.gui.GuiGraphics;
 //? if <1.20
-import net.minecraft.client.gui.GuiComponent;
+/*import net.minecraft.client.gui.GuiComponent;*/
 import net.minecraft.resources.ResourceLocation;
 
 public class MarkdownRenderer {
     //? if >=1.20
-    /*private final GuiGraphics graphics;*/
+    private final GuiGraphics graphics;
     //? if <1.20
-	private final PoseStack pose;
+	/*private final PoseStack pose;*/
 
     //? if >=1.20 {
-    /*public MarkdownRenderer(GuiGraphics graphics) {
+    public MarkdownRenderer(GuiGraphics graphics) {
         this.graphics = graphics;
     }
-    *///?} else {
-    public MarkdownRenderer(PoseStack pose) {
+    //?} else {
+    /*public MarkdownRenderer(PoseStack pose) {
 		this.pose = pose;
 	}
-    //?}
+    *///?}
 
     public void push() {
         getPose().pushPose();
@@ -60,14 +60,14 @@ public class MarkdownRenderer {
         push();
         scale(scale, scale, 1f);
         //? if >=1.20 {
-        /*graphics.drawString(textRenderer, text, (int) (x / scale), (int) (y / scale), color, hasShadow);
-        *///?} else {
-        if (hasShadow) {
+        graphics.drawString(textRenderer, text, (int) (x / scale), (int) (y / scale), color, hasShadow);
+        //?} else {
+        /*if (hasShadow) {
 			textRenderer.drawShadow(pose, text,(int) (x / scale), (int) (y / scale), color);
 		} else {
             textRenderer.draw(pose, text, (int) (x / scale), (int) (y / scale), color);
         }
-        //?}
+        *///?}
         pop();
     }
 
@@ -78,27 +78,27 @@ public class MarkdownRenderer {
 
     public void drawRect(int x, int y, int width, int height, int color) {
         //? if >=1.20
-        /*graphics.fill(x, y, x + width, y + height, color);*/
+        graphics.fill(x, y, x + width, y + height, color);
         //? if <1.20
-        GuiComponent.fill(pose, x, y, x + width, y + height, color);
+        /*GuiComponent.fill(pose, x, y, x + width, y + height, color);*/
 	}
 
     public void drawTexture(ResourceLocation location, int x, int y, int width, int height) {
         //? if >=1.20 {
-        /*graphics.blit(location, x, y, 0, 0, width, height, width, height);
-        *///?} else {
-		//? if >=1.18
-        /*RenderSystem.setShaderTexture(0, location);*/
+        graphics.blit(location, x, y, 0, 0, width, height, width, height);
+        //?} else {
+		/*//? if >=1.18
+        /^RenderSystem.setShaderTexture(0, location);^/
 		//? if <1.18
 		Minecraft.getInstance().getTextureManager().bind(location);
         GuiComponent.blit(pose, x, y, 0, 0, width, height, width, height);
-		//?}
+		*///?}
     }
 
 	public PoseStack getPose() {
 		//? if >=1.20
-		/*return graphics.pose();*/
+		return graphics.pose();
 		//? if <1.20
-		return pose;
+		/*return pose;*/
 	}
 }

@@ -15,12 +15,12 @@ import net.neoforged.fml.common.Mod;
 *///?} else
 import net.minecraft.client.gui.screens.OptionsScreen;
 //? if >=1.18 {
-/*import org.slf4j.Logger;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-*///?} else {
-import org.apache.logging.log4j.LogManager;
+//?} else {
+/*import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-//?}
+*///?}
 import java.util.NoSuchElementException;
 
 //? if forge || neoforge
@@ -28,9 +28,9 @@ import java.util.NoSuchElementException;
 public class ExampleMod {
     public static final String MOD_ID = "mpuc_minemark";
 	//? if >=1.18
-    /*public static final Logger LOGGER = LoggerFactory.getLogger(getDisplayName(MOD_ID));*/
+    public static final Logger LOGGER = LoggerFactory.getLogger(getDisplayName(MOD_ID));
 	//? if <1.18
-	public static final Logger LOGGER = LogManager.getLogger(getDisplayName(MOD_ID));
+	/*public static final Logger LOGGER = LogManager.getLogger(getDisplayName(MOD_ID));*/
 
     private static String getDisplayName(String modId) {
         //? if fabric
