@@ -24,6 +24,8 @@ import dev.dediamondpro.minemark.minecraft.MineMarkDrawable;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.Component;
+//? if <1.19
+import net.minecraft.network.chat.TextComponent;
 import org.xml.sax.SAXException;
 
 
@@ -33,7 +35,7 @@ public class MarkdownTestGui extends Screen {
     private final MineMarkDrawable markdown;
 
     protected MarkdownTestGui() {
-        super(Component.literal("Markdown Test GUI"));
+        super(/*? if >=1.19 {*/ /*Component.literal*//*?} else {*/ new TextComponent/*?}*/("Markdown Test GUI"));
         try {
             String markdownString = "Test **string** *with* a<br>newline <u>because</u> ~~why~~ not and also a [link](https://example.com), this should also automatically wrap if I make this text long enough<br>"
                     + "Image: ![](https://picsum.photos/2000/1000)"

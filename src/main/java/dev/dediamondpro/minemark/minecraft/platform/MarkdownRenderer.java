@@ -87,7 +87,10 @@ public class MarkdownRenderer {
         //? if >=1.20 {
         /*graphics.blit(location, x, y, 0, 0, width, height, width, height);
         *///?} else {
-        RenderSystem.setShaderTexture(0, location);
+		//? if >=1.18
+        /*RenderSystem.setShaderTexture(0, location);*/
+		//? if <1.18
+		Minecraft.getInstance().getTextureManager().bind(location);
         GuiComponent.blit(pose, x, y, 0, 0, width, height, width, height);
 		//?}
     }
