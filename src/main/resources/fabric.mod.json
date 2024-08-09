@@ -17,7 +17,6 @@
   ],
   "entrypoints": {
     "main": [
-      "com.example.examplemod.ExampleMod::onInitialize"
     ]
   },
   "depends": {
