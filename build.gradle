@@ -144,10 +144,10 @@ dependencies {
 		forgeRuntimeLibrary "org.commonmark:commonmark-ext-gfm-tables:$project.properties.commonmark"
 		forgeRuntimeLibrary "org.ccil.cowan.tagsoup:tagsoup:$project.properties.tagsoup"
 	}
-	if (project.name.contains("1.16.5-forge")) {
-		api "com.google.code.gson:gson:2.8.0"
-		forgeRuntimeLibrary "com.google.code.gson:gson:2.8.0"
-	}
+//	if (project.name.contains("1.16.5-forge")) {
+//		implementation "com.google.code.gson:gson:2.8.0"
+//		forgeRuntimeLibrary "com.google.code.gson:gson:2.8.0"
+//	}
 }
 
 jar {
