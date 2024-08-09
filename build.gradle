@@ -17,7 +17,7 @@ plugins {
 group = project.properties.mod_package
 version = project.properties.mod_version
 ModLoader loader = ModLoader.fromProject(project)
-archivesBaseName = "${project.properties.mod_id}-$loader.friendlyName"
+archivesBaseName = "${project.properties.mod_id}-$project.properties.minecraft-$loader.friendlyName"
 
 def packageJar = tasks.create("packageJar", Copy.class) {
     into("${rootProject.layout.buildDirectory.get()}/libs/${E.p["mod_version"]}")
