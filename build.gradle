@@ -258,7 +258,7 @@ publishing {
 	publications {
 		mavenJava(MavenPublication) {
 			groupId = 'dev.jab125.minemark'
-			artifactId = "minemark-minecraft-" + version.getFriendlyString()
+			artifactId = "minemark-minecraft-" + version.getFriendlyString() + "-" + loader.friendlyName
 			it.version = project.version
 			artifact(remapJar) {
 				builtBy(remapJar)
