@@ -10,6 +10,9 @@ import net.minecraftforge.fml.common.Mod;
 /*import net.neoforged.fml.ModList;
 import net.neoforged.fml.common.Mod;
 *///?}
+//? if >=1.21 {
+/*import net.minecraft.client.gui.screens.options.OptionsScreen;
+*///?} else
 import net.minecraft.client.gui.screens.OptionsScreen;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
