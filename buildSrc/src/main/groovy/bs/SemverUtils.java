@@ -4,6 +4,8 @@ import net.fabricmc.loader.api.VersionParsingException;
 import net.fabricmc.loader.api.metadata.version.VersionInterval;
 import net.fabricmc.loader.api.metadata.version.VersionPredicate;
 
+import java.util.Objects;
+
 public class SemverUtils {
     public static String convertSemverPredicateToMavenPredicate(String range) throws VersionParsingException {
         VersionPredicate predicate = VersionPredicate.parse(range);
@@ -21,6 +23,9 @@ public class SemverUtils {
         } else if (interval.getMax() == null) {
             return String.format("%c%s,)", interval.isMinInclusive() ? '[' : '(', interval.getMin());
         } else {
+			if (Objects.equals(interval.getMax(), interval.getMax())) {
+				return interval.getMin().toString();
+			}
             return String.format("%c%s,%s%c", interval.isMinInclusive() ? '[' : '(', interval.getMin(), interval.getMax(), interval.isMaxInclusive() ? ']' : ')');
         }
     }
