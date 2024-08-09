@@ -15,26 +15,26 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.dediamondpro.minemark.minecraft.elements;
+package dev.jab125.minemark.minecraft.elements;
 
 import dev.dediamondpro.minemark.LayoutStyle;
 import dev.dediamondpro.minemark.elements.Element;
-import dev.dediamondpro.minemark.elements.impl.BlockQuoteElement;
-import dev.dediamondpro.minemark.minecraft.platform.MarkdownRenderer;
-import dev.dediamondpro.minemark.minecraft.style.MarkdownStyle;
+import dev.dediamondpro.minemark.elements.impl.HeadingElement;
+import dev.jab125.minemark.minecraft.platform.MarkdownRenderer;
+import dev.jab125.minemark.minecraft.style.MarkdownStyle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;
 
 import java.awt.*;
 
-public class MarkdownBlockQuoteElement extends BlockQuoteElement<MarkdownStyle, MarkdownRenderer> {
-    public MarkdownBlockQuoteElement(@NotNull MarkdownStyle style, @NotNull LayoutStyle layoutStyle, @Nullable Element<MarkdownStyle, MarkdownRenderer> parent, @NotNull String qName, @Nullable Attributes attributes) {
+public class MarkdownHeadingElement extends HeadingElement<MarkdownStyle, MarkdownRenderer> {
+    public MarkdownHeadingElement(@NotNull MarkdownStyle style, @NotNull LayoutStyle layoutStyle, @Nullable Element<MarkdownStyle, MarkdownRenderer> parent, @NotNull String qName, @Nullable Attributes attributes) {
         super(style, layoutStyle, parent, qName, attributes);
     }
 
     @Override
-    protected void drawBlock(float x, float y, float width, float height, Color color, MarkdownRenderer renderer) {
+    protected void drawDivider(float x, float y, float width, float height, Color color, MarkdownRenderer renderer) {
         renderer.drawRect((int) x, (int) y, (int) width, (int) height, color.getRGB());
     }
 }

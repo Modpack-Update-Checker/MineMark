@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.dediamondpro.minemark.minecraft.utils;
+package dev.jab125.minemark.minecraft.utils;
 
 import dev.dediamondpro.minemark.providers.BrowserProvider;
 import net.minecraft.Util;

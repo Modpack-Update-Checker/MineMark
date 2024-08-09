@@ -15,16 +15,16 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.dediamondpro.minemark.minecraft;
+package dev.jab125.minemark.minecraft;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import dev.dediamondpro.minemark.MineMarkCore;
 import dev.dediamondpro.minemark.MineMarkCoreBuilder;
 import dev.dediamondpro.minemark.elements.Elements;
 import dev.dediamondpro.minemark.elements.MineMarkElement;
-import dev.dediamondpro.minemark.minecraft.elements.*;
-import dev.dediamondpro.minemark.minecraft.platform.MarkdownRenderer;
-import dev.dediamondpro.minemark.minecraft.style.MarkdownStyle;
+import dev.jab125.minemark.minecraft.elements.*;
+import dev.jab125.minemark.minecraft.platform.MarkdownRenderer;
+import dev.jab125.minemark.minecraft.style.MarkdownStyle;
 import dev.dediamondpro.minemark.utils.MouseButton;
 //? if >=1.20
 import net.minecraft.client.gui.GuiGraphics;

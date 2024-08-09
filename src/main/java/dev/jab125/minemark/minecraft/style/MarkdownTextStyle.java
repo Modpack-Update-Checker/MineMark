@@ -15,7 +15,7 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.dediamondpro.minemark.minecraft.style;
+package dev.jab125.minemark.minecraft.style;
 
 import dev.dediamondpro.minemark.style.TextStyleConfig;
 

@@ -17,7 +17,7 @@
 
 package com.example.examplemod;
 
-import dev.dediamondpro.minemark.minecraft.MineMarkDrawable;
+import dev.jab125.minemark.minecraft.MineMarkDrawable;
 //? if >=1.20
 import net.minecraft.client.gui.GuiGraphics;
 //? if <1.20

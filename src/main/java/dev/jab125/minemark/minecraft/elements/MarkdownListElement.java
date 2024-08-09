@@ -15,14 +15,14 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.dediamondpro.minemark.minecraft.elements;
+package dev.jab125.minemark.minecraft.elements;
 
 import dev.dediamondpro.minemark.LayoutData;
 import dev.dediamondpro.minemark.LayoutStyle;
 import dev.dediamondpro.minemark.elements.Element;
 import dev.dediamondpro.minemark.elements.impl.list.ListElement;
-import dev.dediamondpro.minemark.minecraft.platform.MarkdownRenderer;
-import dev.dediamondpro.minemark.minecraft.style.MarkdownStyle;
+import dev.jab125.minemark.minecraft.platform.MarkdownRenderer;
+import dev.jab125.minemark.minecraft.style.MarkdownStyle;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.xml.sax.Attributes;

@@ -15,13 +15,10 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-package dev.dediamondpro.minemark.minecraft.style;
+package dev.jab125.minemark.minecraft.style;
 
-import dev.dediamondpro.minemark.minecraft.elements.MarkdownTextElement;
-import dev.dediamondpro.minemark.minecraft.utils.MinecraftBrowserProvider;
-import dev.dediamondpro.minemark.minecraft.utils.MinecraftImageProvider;
-import dev.dediamondpro.minemark.providers.DefaultBrowserProvider;
-import dev.dediamondpro.minemark.providers.DefaultImageProvider;
+import dev.jab125.minemark.minecraft.utils.MinecraftBrowserProvider;
+import dev.jab125.minemark.minecraft.utils.MinecraftImageProvider;
 import dev.dediamondpro.minemark.style.*;
 
 import java.awt.*;
