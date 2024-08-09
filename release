@@ -2,4 +2,4 @@
 
 chmod +x gradlew
 ./gradlew setupChiseledBuild || 0
-./gradlew chiseledBuild publish
+./gradlew chiseledBuild chiseledPublish
