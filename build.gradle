@@ -245,3 +245,10 @@ afterEvaluate {
     packageJar.from(remapJar.archiveFile)
     build.finalizedBy(packageJar)
 }
+
+net.fabricmc.loader.api.Version version = net.fabricmc.loader.api.Version.parse(project.properties.minecraft as String)
+sourceCompatibility = targetCompatibility = version >= net.fabricmc.loader.api.Version.parse("1.20.5") ? 21 : version >= net.fabricmc.loader.api.Version.parse("1.18") ? 17 : version >= net.fabricmc.loader.api.Version.parse("1.17") ? 16 : 1.8
+tasks.withType(JavaCompile).configureEach {
+	if (version >= net.fabricmc.loader.api.Version.parse("1.17"))
+		options.release = version >= net.fabricmc.loader.api.Version.parse("1.20.5") ? 21 : version >= net.fabricmc.loader.api.Version.parse("1.18") ? 17 : version >= net.fabricmc.loader.api.Version.parse("1.17") ? 16 : 8
+}
